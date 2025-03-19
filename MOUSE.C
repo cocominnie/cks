@@ -8,23 +8,22 @@
 
 /**************************
 MOUSE.c
-UPDATER: dengshuumin
 FUNCTION: mouse action
 ABSTRACT:
 		A.mread
 		B.newmouse
 VERSION: 3.0
 ***************************/
-int MouseX;  //Êó±êÎ»ÖÃx
-int MouseY;  //Êó±êÎ»ÖÃy
-int MouseS;  //Êó±êÐÎ×´Shape
-int press;   //Êó±ê°´Ñ¹×´Ì¬
+int MouseX;  //é¼ æ ‡ä½ç½®x
+int MouseY;  //é¼ æ ‡ä½ç½®y
+int MouseS;  //é¼ æ ‡å½¢çŠ¶Shape
+int press;   //é¼ æ ‡æŒ‰åŽ‹çŠ¶æ€
 void *buffer;
 union REGS regs;
-int flag=0;  //Êó±ê»­Ãæ´æÔÚ×´Ì¬
+int flag=0;  //é¼ æ ‡ç”»é¢å­˜åœ¨çŠ¶æ€
 
 
-void mouseinit()//³õÊ¼»¯
+void mouseinit()//åˆå§‹åŒ–
 {
 	int retcode;
 	int xmin,xmax,ymin,ymax,x_max=625,y_max=480;
@@ -62,16 +61,16 @@ void mouseinit()//³õÊ¼»¯
 
 /*****************************
 FUNCTION: mouse
-DESCRIPTION: »­²»Í¬ÐÎÌ¬µÄÊó±ê
+DESCRIPTION: ç”»ä¸åŒå½¢æ€çš„é¼ æ ‡
 INPUT: x,y
-RETURN: ÎÞ
+RETURN: æ— 
 ******************************/
 void mouse(int x,int y)
 {
 	
 	switch(MouseS)
 	{
-		case 1:                                  //ÊÖÊÆÊó±ê
+		case 1:                                  //æ‰‹åŠ¿é¼ æ ‡
 		{
 				setcolor(WHITE);
 				setlinestyle(0,0,1);
@@ -112,7 +111,7 @@ void mouse(int x,int y)
 				line(x+1,y+13,x-1,y+9);
 		}
 			break;
-		case 2:                        //¹â±ê
+		case 2:                        //å…‰æ ‡
 		{
 			setcolor(DARKGRAY);
 			setlinestyle(0,0,1);
@@ -121,7 +120,7 @@ void mouse(int x,int y)
 			line(x+5,y-1,x+5,y+15);
 		}
 			break;
-		case 3:                        //Ê®×Ö
+		case 3:                        //åå­—
 		{
 			setcolor(WHITE);
 			setlinestyle(0,0,1);
@@ -129,7 +128,7 @@ void mouse(int x,int y)
 			line(x+5,y-1,x+5,y+15);
 		}
 			break;
-		default:              //Ä¬ÈÏÊó±ê
+		default:              //é»˜è®¤é¼ æ ‡
 		{
 			setlinestyle(0,0,1);
 			setcolor(WHITE);
@@ -163,7 +162,7 @@ void mouse(int x,int y)
 	}
 }
 
-/*void mou_pos(int *nx,int *ny,int*nbuttons)//¸ü¸ÄÊó±êÎ»ÖÃ
+/*void mou_pos(int *nx,int *ny,int*nbuttons)//æ›´æ”¹é¼ æ ‡ä½ç½®
 {
 	int x0=*nx,y0=*ny;
 
@@ -173,7 +172,7 @@ void mouse(int x,int y)
 	drawmous(*nx,*ny);
 }
 
-void mread(int *nx,int *ny,int*nbuttons)//¸Ä×ø±ê²»»­
+void mread(int *nx,int *ny,int*nbuttons)//æ”¹åæ ‡ä¸ç”»
 {
 	int x0=*nx,y0=*ny,buttons0=*nbuttons;
 	int xnew,ynew,buttonsnew;
@@ -199,9 +198,9 @@ void mread(int *nx,int *ny,int*nbuttons)//¸Ä×ø±ê²»»­
 
 /***************************************
 FUNCTION: mread
-DESCRIPTION: »ñÈ¡ÐÂµÄ¼Ä´æÆ÷ÐÅÏ¢
+DESCRIPTION: èŽ·å–æ–°çš„å¯„å­˜å™¨ä¿¡æ¯
 INPUT: nx,ny,nbuttons
-RETURN: ÎÞ
+RETURN: æ— 
 ****************************************/
 void mread(int *nx,int *ny,int *nbuttons)  
 {
@@ -214,9 +213,9 @@ void mread(int *nx,int *ny,int *nbuttons)
 
 /*******************************************
 FUNCTION: newmouse
-DESCRIPTION: Êó±ê×´Ì¬·¢Éú±ä»¯Ôò¸üÐÂÊó±ê
+DESCRIPTION: é¼ æ ‡çŠ¶æ€å‘ç”Ÿå˜åŒ–åˆ™æ›´æ–°é¼ æ ‡
 INPUT: nx,ny,nbuttons
-RETURN: ÎÞ
+RETURN: æ— 
 ********************************************/
 void newmouse(int *nx,int *ny,int *nbuttons)
 {
@@ -227,15 +226,15 @@ void newmouse(int *nx,int *ny,int *nbuttons)
 	*ny = yn;
 	*nbuttons = buttonsn;
 	if(buttons0 == *nbuttons)
-		*nbuttons = 0;    //Ê¹µÃÄÜÁ¬Ðø°´¼ü
+		*nbuttons = 0;    //ä½¿å¾—èƒ½è¿žç»­æŒ‰é”®
 	if(xn == x0 && yn == y0 && buttonsn == buttons0)
-		return;            //Êó±ê×´Ì¬²»±äÔòÖ±½Ó·µ»ØS
-	clrmous(x0,y0);        //ËµÃ÷Êó±ê×´Ì¬·¢ÉúÁË¸Ä±ä
+		return;            //é¼ æ ‡çŠ¶æ€ä¸å˜åˆ™ç›´æŽ¥è¿”å›žS
+	clrmous(x0,y0);        //è¯´æ˜Žé¼ æ ‡çŠ¶æ€å‘ç”Ÿäº†æ”¹å˜
 	save_bk_mou(*nx,*ny);
 	drawmous(*nx,*ny);
 }
 
-void save_bk_mou(int nx,int ny)//´æÊó±ê±³¾°
+void save_bk_mou(int nx,int ny)//å­˜é¼ æ ‡èƒŒæ™¯
 {
 	int size;
 
@@ -247,7 +246,7 @@ void save_bk_mou(int nx,int ny)//´æÊó±ê±³¾°
 		printf("Error");
 }
 
-void clrmous(int nx,int ny)//Çå³ýÊó±ê
+void clrmous(int nx,int ny)//æ¸…é™¤é¼ æ ‡
 {
 	if(flag==1)
 	{
@@ -271,10 +270,10 @@ void drawmous(int nx,int ny)
 
 
 
-//Èç¹ûÔÚ¿òÖÐµã»÷£¬Ôò·µ»Ø1£»ÔÚ¿òÖÐÎ´µã»÷£¬Ôò·µ»Ø2£»²»ÔÚ¿òÖÐÔò·µ»Ø0
+//å¦‚æžœåœ¨æ¡†ä¸­ç‚¹å‡»ï¼Œåˆ™è¿”å›ž1ï¼›åœ¨æ¡†ä¸­æœªç‚¹å‡»ï¼Œåˆ™è¿”å›ž2ï¼›ä¸åœ¨æ¡†ä¸­åˆ™è¿”å›ž0
 int mouse_press(int x1, int y1, int x2, int y2)
 {
-	//ÔÚ¿òÖÐµã»÷£¬Ôò·µ»Ø1
+	//åœ¨æ¡†ä¸­ç‚¹å‡»ï¼Œåˆ™è¿”å›ž1
 	if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1
@@ -284,7 +283,7 @@ int mouse_press(int x1, int y1, int x2, int y2)
 		return 1;
 	}
 	
-	//ÔÚ¿òÖÐÎ´µã»÷£¬Ôò·µ»Ø2
+	//åœ¨æ¡†ä¸­æœªç‚¹å‡»ï¼Œåˆ™è¿”å›ž2
 	else if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1
@@ -294,7 +293,7 @@ int mouse_press(int x1, int y1, int x2, int y2)
 		return 2;
 	}
 	
-	//ÔÚ¿òÖÐµã»÷ÓÒ¼ü£¬Ôò·µ»Ø3
+	//åœ¨æ¡†ä¸­ç‚¹å‡»å³é”®ï¼Œåˆ™è¿”å›ž3
 	else if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1
