@@ -14,6 +14,9 @@
 #include"hz.h"
 #include"mouse.h"
 #include"welcome.h"
+#include"panel.h"
+#include"login.h"
+#include"lgfunc.h"
 
 #define NUM0 0x5230
 #define NUM1 0x4f31
